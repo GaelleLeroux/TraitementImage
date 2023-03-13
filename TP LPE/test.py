@@ -101,7 +101,7 @@ while min!=256 :
             # print('u = {}'.format(u))
     else :
         print(len(filex[min]))
-        # print('toto')
+        
         min+=1
 
 plt.figure(2, figsize=(50,20))

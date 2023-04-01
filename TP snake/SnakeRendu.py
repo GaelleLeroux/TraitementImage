@@ -30,7 +30,7 @@ def bruitage_poivresel(image,prob):
 ########################################
 
 ###Ouverture image###
-ImageOriginale = plt.imread("im6.png")
+ImageOriginale = plt.imread("im10.png")
 ImageOriginale = ImageOriginale[:,:,0]
 #ImageOriginale=bruitage_poivresel(ImageOriginale,0.005)
 ImageOriginale=gaussian_filter(ImageOriginale,1)
@@ -42,7 +42,7 @@ plt.show()
 #####################
 
 ###Parametres###
-alpha = 1
+alpha =1
 beta = 0.5
 gamma = 15
 ################
@@ -50,7 +50,6 @@ gamma = 15
 ###Creation du snake###
 centre=[int(colones/2),int(lignes/2)]
 rayon=min(int((colones-5)/2),int((lignes-5)/2))
-delta = 1.
 K = 1000
 snakeX = []
 snakeY = []
@@ -80,6 +79,13 @@ GradSuivX = np.zeros(snakeX.shape)
 GradSuivY = np.zeros(snakeY.shape)
 compteur=0
 k=0
+E_img=0
+for i in range(K):
+    X = int(snakeX[i])
+    Y = int(snakeY[i])
+    grad = gradient[Y][X]
+    E_img += -gamma * grad
+print("energie image initiale", E_img)
 while compteur<16000:
     for i in range(K):
         Y=int(snakeY[i])
@@ -137,4 +143,12 @@ plt.figure(3)
 plt.imshow(ImageOriginale,'gray')
 plt.plot(snakeX, snakeY, 'g', linewidth=3)
 plt.show()
+
+E_img=0
+for i in range(K):
+    X = int(snakeX[i])
+    Y = int(snakeY[i])
+    grad = gradient[Y][X]
+    E_img += -gamma * grad
+print("energie image finale", E_img)
 ##################
